@@ -39,11 +39,13 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/autodeploy-app:latest .
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ghcr.io/$OWNER/autodeploy-app:latest .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/autodeploy-app:latest
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker push ghcr.io/$OWNER/autodeploy-app:latest
 
       - name: Validate Docker Compose
         run: docker compose config
