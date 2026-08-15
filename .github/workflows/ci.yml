@@ -35,14 +35,16 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
+        shell: powershell
         run: |
-          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build -t ghcr.io/$OWNER/autodeploy-app:latest .
+          $OWNER = "${{ github.repository_owner }}".ToLower()
+          docker build -t "ghcr.io/$OWNER/autodeploy-app:latest" .
 
       - name: Push Docker image
+        shell: powershell
         run: |
-          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker push ghcr.io/$OWNER/autodeploy-app:latest
+          $OWNER = "${{ github.repository_owner }}".ToLower()
+          docker push "ghcr.io/$OWNER/autodeploy-app:latest"
 
       - name: Validate Docker Compose
         run: docker compose config
