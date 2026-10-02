@@ -1,3 +1,21 @@
+# Node.js
 node_modules/
-.env
 *.log
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Terraform state and local files
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
+crash.*.log
+
+# Private keys
+*.pem
+
+# Terraform lockfile backup only
+.terraform.lock.hcl.backup
